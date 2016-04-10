@@ -1,0 +1,32 @@
+<style type="text/css">
+	#appointmentContainer{
+		padding: 20px;
+	}
+</style>
+
+<div ng-controller='AppointmentController' id='appointmentContainer'>
+	<h1>Please create a appointment</h1>
+	<a href="#/"><input type="submit" value="Log Out"></a>
+
+	<h3>Date:
+		<select ng-model="newAppoint.date">
+			<option value="4/6/16">4/6/16</option>
+			<option value="4/7/16">4/7/16</option>
+			<option value="4/8/16">4/8/16</option>
+			<option value="4/9/16">4/9/16</option>
+			<option value="4/10/16">4/10/16</option>
+		</select>
+	</h3>
+
+	<h3>Time:
+		<select ng-model="newAppoint.time">
+			<option value="8am">8am</option>
+			<option value="9am">9am</option>
+			<option value="10am">10am</option>
+			<option value="11am">11am</option>
+			<option value="12pm">12pm</option>
+		</select>
+	</h3>	
+
+	<input type="submit" value="Create Appointment" ng-click="addAppoint()">
+</div>
