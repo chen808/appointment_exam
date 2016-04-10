@@ -4,10 +4,16 @@
 	}
 </style>
 
-<div ng-controller='AppointmentController' id='appointmentContainer'>
+<div ng-controller='AppointmentController' id='appointmentContainer' align='center'>
 	<h1>Please create a appointment</h1>
 	<a href="#/"><input type="submit" value="Log Out"></a>
 
+	<!-- current logged in user name -->
+	<h1>Current patient: {{ this_user[0] }}</h1>
+	<!-- hide this current user name to be called upon in AppointmentController -->
+	<input type='hidden' ng-value='newAppoint.user_name= this_user[0]'>
+
+	<!-- Select Date -->
 	<h3>Date:
 		<select ng-model="newAppoint.date">
 			<option value="4/6/16">4/6/16</option>
@@ -18,6 +24,7 @@
 		</select>
 	</h3>
 
+	<!-- Select Time -->
 	<h3>Time:
 		<select ng-model="newAppoint.time">
 			<option value="8am">8am</option>
@@ -26,7 +33,32 @@
 			<option value="11am">11am</option>
 			<option value="12pm">12pm</option>
 		</select>
-	</h3>	
+	</h3>
 
+	<!-- Additional Comments -->
+	<form name="myForm">
+		<h5>Add any additional comments:</h5>
+		<label>
+			<textarea rows="4" cols="30" name="comment" ng-model="newAppoint.comment" ng-minlength="10"></textarea>
+
+		</label>
+		
+		<!-- Alert for comments -->
+		<div role="alert">
+			<span class="error" ng-show="myForm.comment.$error.minlength">Too short!</span>
+		</div>
+	</form>
+
+
+	<!-- Submit -->
 	<input type="submit" value="Create Appointment" ng-click="addAppoint()">
+
+
 </div>
+
+
+
+
+
+
+

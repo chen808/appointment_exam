@@ -1,4 +1,4 @@
-// ROUTES.JS
+// Routes
 
 // require topic controller
 var user = require('./../controllers/users.js');
@@ -19,7 +19,9 @@ module.exports = function(app){
 
 
 	// POSTS ===========================================
-
+	app.post('/new_appoint/', function(req, res){
+		user.newAppoint(req, res);
+	})
 
 
 

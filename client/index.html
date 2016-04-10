@@ -55,6 +55,13 @@
 				callback(stashUser);
 			}
 
+			factory.createAppoint = function(info, callback){
+				// route to backend controller
+				$http.post('/new_appoint', info).success(function(output){
+					
+				})
+			}
+
 
 			return factory;
 		}) // end UserFactory
@@ -70,11 +77,11 @@
 		// SIGN IN CONTROLLER ================================
 		myApp.controller('SignInController', function($scope, UserFactory, $location){
 
+			// get the current user name
 			UserFactory.get_current_user(function(data){
 				$scope.this_user = data;
 			})
 			
-
 			// New User
 			$scope.newUser = function(){
 				// store the newly signed user to variable
@@ -90,6 +97,26 @@
 
 		// APPOINTMENT CONTROLLER =============================
 		myApp.controller('AppointmentController', function($scope, UserFactory, $location){
+
+			// get the current user name
+			UserFactory.get_current_user(function(data){
+				$scope.this_user = data;
+			})
+
+			// capturing new appointment
+			$scope.addAppoint = function(){
+				console.log($scope.newAppoint);
+
+				// send data up to factory
+				UserFactory.createAppoint($scope.newAppoint, function(data){
+
+				})
+
+				// clear the form
+				$scope.newAppoint = {};
+			}
+
+
 
 
 
