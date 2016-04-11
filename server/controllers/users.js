@@ -8,32 +8,40 @@ module.exports = (function(){
 	return{
 		// creating new appointments
 		newAppoint: function(req, res){
-			console.log(req.body.user_name);
-			console.log(req.body.date);
 			// check so see if user name and date already exists use req.body
 			User.find({ user_name:req.body.user_name, date:req.body.date }, function(err, results){
-				
+				// get the date count
+				User.count({date:req.body.date}, function(err, count){
+					console.log(count);
 
-				// HOW TO RETURN ERROR MESSAGE FROM HERE BACK TO HTML????
+					// if the date count is 3 or greater
+					if(count >= 3){
+						return res.json({error:"The date you have chose has already been filled up, please chose another date"});
+					}
+					// if date count is less then 3
+					else{
+						// if user is FOUND
+						if(results.length != 0){
+							console.log('User and appointment date already exists, cannot add appointment');
+							return res.json({error:"This user has already made an appointment for today."});
+						}
+						// if NOT FOUND, add the data
+						else{
+							console.log('Successfully added appointment!');
 
+							// storing appointments into database
+							User.create({
+								user_name:req.body.user_name,
+								date:req.body.date,
+								time:req.body.time,
+								comment:req.body.comment
+							})
 
-				// if user found
-				if(results.length != 0){
-					console.log('User and appointment date already exists, cannot add appointment');
-					// return res.json(err);
-				}
-				// if not found, add the data
-				else{
-					console.log('Successfully added appointment!');
-					// storing appointments into database
-					User.create({
-						user_name:req.body.user_name,
-						date:req.body.date,
-						time:req.body.time,
-						comment:req.body.comment
-					})
-				}
-			})	
+							return res.json({error:"Successfully added appointment"});
+						}
+					}
+				}) // end User.count
+			}) // end User.find
 		},
 
 

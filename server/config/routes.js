@@ -20,8 +20,12 @@ module.exports = function(app){
 
 
 
+
+
 	// POSTS ===========================================
 	app.post('/new_appoint', function(req, res){
+		console.log('printing from routes to see error message below');
+		console.log(res.error);
 		user.newAppoint(req, res);
 	})
 

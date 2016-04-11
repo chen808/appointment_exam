@@ -40,7 +40,6 @@
 		<h5>Add any additional comments:</h5>
 		<label>
 			<textarea rows="4" cols="30" name="comment" ng-model="newAppoint.comment" ng-minlength="10"></textarea>
-
 		</label>
 		
 		<!-- Alert for comments -->
@@ -49,9 +48,14 @@
 		</div>
 	</form>
 
-
 	<!-- Submit -->
-	<a href="#/dashboard"><input type="submit" value="Create Appointment" ng-click="addAppoint()"></a>
+	<a href="#/newAppoint"><input type="submit" value="Create Appointment" ng-click="addAppoint()"></a>
+	
+	<!-- Back to Dashboard button -->
+	<a href="#/dashboard"><input type="submit" value="Back to Dashboard"></a>
+
+	<!-- Display the error or success message -->
+	<br>{{ this_error.error }}
 
 
 </div>

@@ -35,10 +35,18 @@
 		        .when('/dashboard',{
 		            templateUrl: 'partials/dashboard.html'
 		        })
+		        .when('/dashboard/:data',{
+		            templateUrl: 'partials/dashboard.html'
+		        })
 		        .otherwise({
 		          redirectTo: '/'
 		        });
 		});
+
+
+
+
+
 		// FACTORY ============================================
 		myApp.factory('UserFactory', function($http){
 			var factory = {};
@@ -65,14 +73,17 @@
 			factory.createAppoint = function(info, callback){
 				console.log(info);
 				// route to backend controller
-				$http.post('/new_appoint', info).success(function(output){})
+				$http.post('/new_appoint', info).success(function(output){
+					// sending error back
+					callback(output);
+				})
 			}
 
 			factory.delete_appoint = function(delete_data){
 				$http.post('/delete_appointment/' + delete_data).success(function(output){});
 			}
 
-
+			
 
 			return factory;
 		}) // end UserFactory
@@ -86,7 +97,7 @@
 
 
 		// SIGN IN CONTROLLER ================================
-		myApp.controller('SignInController', function($scope, UserFactory, $location){
+		myApp.controller('SignInController', function($scope, UserFactory, $location, $routeParams){
 
 			// get the current user name
 			UserFactory.get_current_user(function(data){
@@ -98,7 +109,8 @@
 				// create scope so dashboard.html can access it
 				$scope.allAppoints = data
 			})
-			
+
+
 			// New User
 			$scope.newUser = function(){
 				// store the newly signed user to variable
@@ -106,7 +118,6 @@
 				// call on factory to store the current user name temporary
 				UserFactory.stashUser(new_User, function(user){})
 			}
-
 
 			// deleting appointment
 			$scope.deleteAppoint = function(delete_data){
@@ -118,7 +129,6 @@
 					$scope.allAppoints = data
 				})
 			}
-
 
 		}) // end SignInController
 
@@ -139,34 +149,16 @@
 
 			// capturing new appointment
 			$scope.addAppoint = function(){
-				console.log($scope.newAppoint);
-
 				// send data up to factory
 				UserFactory.createAppoint($scope.newAppoint, function(data){
-
+					// this hold the error message that was sent from back end
+					$scope.this_error = data;
 				})
-
 				// clear the form
 				$scope.newAppoint = {};
 			}
 
-
-
-
-
-
-
-
-
 		}) // end AppointmentController
-
-
-
-
-
-
-
-
 
 
 
@@ -177,3 +169,10 @@
 	<div ng-view=""></div>
 </body>
 </html>
+
+
+
+
+
+
+
