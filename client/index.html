@@ -55,12 +55,19 @@
 				callback(stashUser);
 			}
 
-			factory.createAppoint = function(info, callback){
-				// route to backend controller
-				$http.post('/new_appoint', info).success(function(output){
-					
+			factory.get_all_appoints = function(callback){
+				$http.get('/get_appoints').success(function(output){
+					// callback the output data retrieved from database
+					callback(output);
 				})
 			}
+
+			factory.createAppoint = function(info, callback){
+				console.log(info);
+				// route to backend controller
+				$http.post('/new_appoint', info).success(function(output){})
+			}
+
 
 
 			return factory;
@@ -81,6 +88,12 @@
 			UserFactory.get_current_user(function(data){
 				$scope.this_user = data;
 			})
+
+			// get all the appointments
+			UserFactory.get_all_appoints(function(data){
+				// create scope so dashboard.html can access it
+				$scope.allAppoints = data
+			})
 			
 			// New User
 			$scope.newUser = function(){
@@ -92,6 +105,11 @@
 
 
 		}) // end SignInController
+
+
+
+
+
 
 
 

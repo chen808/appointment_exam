@@ -10,7 +10,24 @@
 	<h1>Hello {{ this_user[0] }}</h1>
 
 	<!-- Display the appointments here -->
+	<h3>Updated Appointment List</h3>
+	<table class='table'>
+		<tr>
+			<th>Patient Name</th>
+			<th>Appointment Date</th>
+			<th>Appointment Time</th>
+			<th>Additional Comments</th>
+			<th>Delete Appointment</th>
+		</tr>
 
+		<tr ng-repeat='x in allAppoints'>
+			<td>{{ x.user_name }}</td>
+			<td>{{ x.date }}</td>
+			<td>{{ x.time }}</td>
+			<td>{{ x.comment }}</td>
+			<td>Cancel Appointment</td>
+		</tr>
+	</table>
 
 	<!-- Link to create appointment -->
 	<a href="#/newAppoint"><input type="submit" value="Create Appointment"></a>
