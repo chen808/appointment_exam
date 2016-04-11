@@ -68,6 +68,10 @@
 				$http.post('/new_appoint', info).success(function(output){})
 			}
 
+			factory.delete_appoint = function(delete_data){
+				$http.post('/delete_appointment/' + delete_data).success(function(output){});
+			}
+
 
 
 			return factory;
@@ -101,6 +105,18 @@
 				var new_User = $scope.new_User;
 				// call on factory to store the current user name temporary
 				UserFactory.stashUser(new_User, function(user){})
+			}
+
+
+			// deleting appointment
+			$scope.deleteAppoint = function(delete_data){
+				UserFactory.delete_appoint(delete_data, function(data){});
+
+				// get all the appointments
+				UserFactory.get_all_appoints(function(data){
+					// create scope so dashboard.html can access it
+					$scope.allAppoints = data
+				})
 			}
 
 

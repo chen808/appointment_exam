@@ -51,6 +51,20 @@ module.exports = (function(){
 
 
 
+		// deleting appointment
+		deleting_appointment: function(req, res, id){
+			User.remove({_id: req.params.id}, function(err, results){
+				if(err){
+					console.log('Not able to delete');
+				}
+				else{
+					console.log('Deleted Successfully');
+				}
+			})
+		}
+
+
+
 
 
 

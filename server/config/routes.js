@@ -22,9 +22,11 @@ module.exports = function(app){
 
 	// POSTS ===========================================
 	app.post('/new_appoint', function(req, res){
-		console.log('printing from the routesjs');
-		console.log(req.body);
 		user.newAppoint(req, res);
+	})
+
+	app.post('/delete_appointment/:id', function(req, res){
+		user.deleting_appointment(req, res, req.params.id);
 	})
 
 
